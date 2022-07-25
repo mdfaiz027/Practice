@@ -18,11 +18,10 @@ import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    Context context;
     List<Model> arraylist = new ArrayList<>();
+    List<Integer> visiblePositions = new ArrayList<>();
 
-    public Adapter(Context context, List<Model> arraylist) {
-        this.context = context;
+    public Adapter(List<Model> arraylist) {
         this.arraylist = arraylist;
     }
 
@@ -40,13 +39,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.Sub.setText(arraylist.get(position).getSub());
         holder.dropdown.setImageResource(arraylist.get(position).getImage());
 
+        if (visiblePositions.contains(position)){
+            holder.Sub.setVisibility(View.VISIBLE);
+        } else {
+            holder.Sub.setVisibility(View.INVISIBLE);
+        }
+
         holder.dropdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.Sub.setVisibility(View.VISIBLE);
+                visiblePositions.add(position);
+                notifyItemChanged(position);
             }
         });
-
     }
     
     @Override
@@ -68,6 +73,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         }
     }
-
 
 }
