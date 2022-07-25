@@ -40,6 +40,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.Sub.setText(arraylist.get(position).getSub());
         holder.dropdown.setImageResource(arraylist.get(position).getImage());
 
+        holder.dropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.Sub.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
     
     @Override
